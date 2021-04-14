@@ -819,6 +819,7 @@ void CBuzzController::ProcessOutMsgs() {
       buzzoutmsg_queue_next(m_tBuzzVM);
       buzzmsg_payload_destroy(&m);
    } while(1);
+   int totalSize = cData.Size();
    /* Pad the rest of the data with zeroes */
    while(cData.Size() < m_pcRABA->GetSize()) cData << static_cast<UInt8>(0);
    /* Send message */
@@ -835,7 +836,8 @@ void CBuzzController::ProcessOutMsgs() {
    /* Set debug.msgqueue.total */
    TablePut(tMsgQueue,
             "total",
-            static_cast<SInt32>(buzzoutmsg_queue_size(m_tBuzzVM)));
+            //static_cast<SInt32>(buzzoutmsg_queue_size(m_tBuzzVM)));
+            static_cast<SInt32>(totalSize));
    /* Set debug.msgqueue.broadcast */
    TablePut(tMsgQueue,
             "broadcast",
